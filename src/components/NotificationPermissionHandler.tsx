@@ -46,7 +46,17 @@ const NotificationPermissionHandler: React.FC = () => {
       }
 
       const result = await requestNotificationPermission();
-      setPermissionStatus(result);
+      if (result) {
+        setPermissionStatus({
+          success: true,
+          message: 'Notifikasi berhasil diaktifkan'
+        });
+      } else {
+        setPermissionStatus({
+          success: false,
+          message: 'Izin notifikasi ditolak atau terjadi kesalahan'
+        });
+      }
     } catch (error) {
       console.error('Error checking notification permission:', error);
       setPermissionStatus({
@@ -62,7 +72,17 @@ const NotificationPermissionHandler: React.FC = () => {
     setIsLoading(true);
     try {
       const result = await requestNotificationPermission();
-      setPermissionStatus(result);
+      if (result) {
+        setPermissionStatus({
+          success: true,
+          message: 'Notifikasi berhasil diaktifkan'
+        });
+      } else {
+        setPermissionStatus({
+          success: false,
+          message: 'Izin notifikasi ditolak atau terjadi kesalahan'
+        });
+      }
       setIsBlocked(false);
     } catch (error) {
       console.error('Error requesting notification permission:', error);
