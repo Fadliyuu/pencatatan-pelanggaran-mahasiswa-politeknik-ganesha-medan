@@ -74,8 +74,7 @@ export default function MahasiswaDetailPage() {
   }, [params.id, router]);
 
   const handleDelete = async () => {
-    if (!params?.id) return;
-
+    if (!params || !('id' in params) || !params.id) return;
     if (window.confirm('Apakah Anda yakin ingin menghapus mahasiswa ini?')) {
       try {
         await deleteMahasiswa(params.id as string);
@@ -93,9 +92,8 @@ export default function MahasiswaDetailPage() {
       try {
         await deletePelanggaran(pelanggaranId);
         toast.success('Pelanggaran berhasil dihapus');
-        
         // Refresh data pelanggaran
-        if (params?.id) {
+        if (params && 'id' in params && params.id) {
           const pelanggaranData = await getPelanggaranByMahasiswaId(params.id as string);
           setPelanggaran(pelanggaranData);
         }
@@ -213,7 +211,7 @@ export default function MahasiswaDetailPage() {
               <Button
                 variant="outline"
                 className="flex-1"
-                onClick={() => router.push(`/admin/mahasiswa/${params.id}/edit`)}
+                onClick={() => router.push(`/admin/mahasiswa/${params && 'id' in params ? params.id : ''}/edit`)}
               >
                 <Edit size={16} className="mr-2" />
                 Edit
