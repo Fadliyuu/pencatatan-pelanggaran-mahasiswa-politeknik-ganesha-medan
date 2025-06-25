@@ -77,8 +77,8 @@ export default function ProfilPage() {
 
         setMahasiswa(mahasiswaData as unknown as Mahasiswa);
         setFormData({
-          email: mahasiswaData?.email || "",
-          alamat: mahasiswaData?.alamat || ""
+          email: (mahasiswaData as any)?.email || "",
+          alamat: (mahasiswaData as any)?.alamat || ""
         });
         if (mahasiswaData?.photoURL) {
           setPreviewUrl(mahasiswaData.photoURL);
