@@ -57,7 +57,7 @@ export default function PengumumanDetailPage() {
       try {
         setLoading(true);
         const pengumumanData = await getPengumuman();
-        const selectedPengumuman = pengumumanData.find((p: Pengumuman) => p.id === params.id);
+        const selectedPengumuman = pengumumanData.find(p => p.id === params.id);
 
         if (!selectedPengumuman) {
           toast.error('Pengumuman tidak ditemukan');
