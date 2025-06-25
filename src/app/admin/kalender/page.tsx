@@ -1104,7 +1104,7 @@ export default function KalenderPage() {
               {selectedEvent && (
                 <Button
                   type="button"
-                  variant="danger"
+                  variant="destructive"
                   onClick={() => {
                     if (window.confirm('Apakah Anda yakin ingin menghapus acara ini?')) {
                       handleDeleteEvent(selectedEvent.id);
