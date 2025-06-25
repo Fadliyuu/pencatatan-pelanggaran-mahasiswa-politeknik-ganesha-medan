@@ -80,7 +80,7 @@ export default function ProfilPage() {
           email: (mahasiswaData as any)?.email || "",
           alamat: (mahasiswaData as any)?.alamat || ""
         });
-        if (mahasiswaData?.photoURL) {
+        if ('photoURL' in mahasiswaData && mahasiswaData.photoURL) {
           setPreviewUrl(mahasiswaData.photoURL);
         }
       } catch (error) {
