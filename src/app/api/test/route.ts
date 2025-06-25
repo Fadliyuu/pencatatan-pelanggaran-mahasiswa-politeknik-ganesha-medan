@@ -18,11 +18,14 @@ export async function GET() {
       firebase: {
         connected: true,
         usersCount: users.length,
-        users: users.map(user => ({
-          id: user.id,
-          email: user.email || '',
-          role: user.role || ''
-        }))
+        users: users.map(user => {
+          const u = user as any;
+          return {
+            id: u.id,
+            email: u.email || '',
+            role: u.role || ''
+          };
+        })
       },
       environment: {
         nodeEnv: process.env.NODE_ENV,
