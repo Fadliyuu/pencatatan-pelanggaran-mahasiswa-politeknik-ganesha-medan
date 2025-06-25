@@ -67,10 +67,11 @@ export default function RiwayatPage() {
         
         // Gabungkan data pelanggaran dengan data peraturan
         const pelanggaranWithPeraturan = await Promise.all(
-          (pelanggaranData as Pelanggaran[]).map(async (p) => {
+          (pelanggaranData as any[]).map(async (p) => {
             const peraturan = peraturanData.find(per => per.id === p.peraturanId);
             return {
               ...p,
+              status: p.status || "Diproses",
               peraturan: peraturan || {
                 nama: "Peraturan tidak ditemukan",
                 kategori: "Tidak Diketahui",
