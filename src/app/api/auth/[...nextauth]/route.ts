@@ -4,7 +4,7 @@ import { compare } from 'bcryptjs';
 import { db } from '@/lib/firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
-const authOptions: AuthOptions = {
+const options: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -100,7 +100,7 @@ const authOptions: AuthOptions = {
   debug: process.env.NODE_ENV === 'development',
 };
 
-const handler = NextAuth(authOptions);
+const handler = NextAuth(options);
 
 export const GET = handler;
 export const POST = handler; 
