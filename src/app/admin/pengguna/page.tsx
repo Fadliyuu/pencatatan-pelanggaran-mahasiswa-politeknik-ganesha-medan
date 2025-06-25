@@ -72,22 +72,25 @@ export default function AdminPengguna() {
 
       // Load mahasiswa
       const mahasiswaData = await getMahasiswa();
-      const mahasiswaUsers = mahasiswaData.map(mahasiswa => ({
-        id: mahasiswa.id,
-        uid: mahasiswa.uid || '',
-        email: mahasiswa.email || '',
-        displayName: mahasiswa.name || '',
-        photoURL: mahasiswa.photoURL,
-        role: 'mahasiswa' as const,
-        nim: mahasiswa.nim,
-        programStudi: mahasiswa.programStudi,
-        angkatan: mahasiswa.angkatan,
-        phoneNumber: mahasiswa.phoneNumber,
-        address: mahasiswa.address,
-        createdAt: mahasiswa.createdAt,
-        updatedAt: mahasiswa.updatedAt,
-        password: mahasiswa.password
-      }));
+      const mahasiswaUsers = mahasiswaData.map(mahasiswa => {
+        const m = mahasiswa as any;
+        return {
+          id: m.id,
+          uid: m.uid || '',
+          email: m.email || '',
+          displayName: m.name || '',
+          photoURL: m.photoURL,
+          role: 'mahasiswa' as const,
+          nim: m.nim,
+          programStudi: m.programStudi,
+          angkatan: m.angkatan,
+          phoneNumber: m.phoneNumber,
+          address: m.address,
+          createdAt: m.createdAt,
+          updatedAt: m.updatedAt,
+          password: m.password
+        };
+      });
       allUsers.push(...mahasiswaUsers);
 
       // Load admin
