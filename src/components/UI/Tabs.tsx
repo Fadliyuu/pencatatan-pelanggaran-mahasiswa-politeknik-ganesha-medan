@@ -12,6 +12,8 @@ interface TabsProps {
 interface TabsListProps {
   className?: string;
   children: React.ReactNode;
+  activeTab?: string;
+  setActiveTab?: (value: string) => void;
 }
 
 interface TabsTriggerProps {
@@ -19,12 +21,15 @@ interface TabsTriggerProps {
   className?: string;
   children: React.ReactNode;
   onClick?: () => void;
+  activeTab?: string;
+  setActiveTab?: (value: string) => void;
 }
 
 interface TabsContentProps {
   value: string;
   className?: string;
   children: React.ReactNode;
+  activeTab?: string;
 }
 
 export function Tabs({ defaultValue, className, children }: TabsProps) {
@@ -33,7 +38,7 @@ export function Tabs({ defaultValue, className, children }: TabsProps) {
   return (
     <div className={cn("w-full", className)}>
       {React.Children.map(children, (child) => {
-        if (React.isValidElement(child)) {
+        if (React.isValidElement(child) && child.type === TabsList) {
           return React.cloneElement(child, {
             activeTab,
             setActiveTab,
@@ -49,7 +54,10 @@ export function TabsList({ className, children, activeTab, setActiveTab }: TabsL
   return (
     <div className={cn("flex space-x-1 rounded-lg bg-gray-100 p-1", className)}>
       {React.Children.map(children, (child) => {
-        if (React.isValidElement(child) && child.type === TabsList) {
+        if (
+          React.isValidElement(child) &&
+          (child.type === TabsTrigger || child.type === TabsContent)
+        ) {
           return React.cloneElement(child, {
             activeTab,
             setActiveTab,
