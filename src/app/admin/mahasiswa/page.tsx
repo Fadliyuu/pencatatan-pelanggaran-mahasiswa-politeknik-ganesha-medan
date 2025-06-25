@@ -16,7 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'react-hot-toast';
 import * as XLSX from 'xlsx';
-import { Image } from '@/components/UI/Image';
+import Image from 'next/image';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { addDoc, collection, updateDoc, getDocs, query, where, deleteDoc, writeBatch, setDoc, getDoc, doc } from 'firebase/firestore';
