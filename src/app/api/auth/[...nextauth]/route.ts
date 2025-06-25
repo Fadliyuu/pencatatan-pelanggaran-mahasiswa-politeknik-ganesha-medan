@@ -4,7 +4,7 @@ import { compare } from 'bcryptjs';
 import { db } from '@/lib/firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -102,6 +102,5 @@ export const authOptions: AuthOptions = {
 
 const handler = NextAuth(authOptions);
 
-// Export handler untuk Next.js 14
 export const GET = handler;
 export const POST = handler; 
