@@ -1,0 +1,161 @@
+/* Input Field Styles */
+.input-field {
+  @apply w-full px-3 py-2 border border-input rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring;
+}
+
+/* Button Styles */
+.btn {
+  @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background;
+}
+
+.btn-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/90;
+}
+
+.btn-outline {
+  @apply border border-input hover:bg-accent hover:text-accent-foreground;
+}
+
+.btn-ghost {
+  @apply hover:bg-accent hover:text-accent-foreground;
+}
+
+.btn-link {
+  @apply underline-offset-4 hover:underline text-primary;
+}
+
+/* Card Styles */
+.card {
+  @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+}
+
+.card-header {
+  @apply flex flex-col space-y-1.5 p-6;
+}
+
+.card-title {
+  @apply text-2xl font-semibold leading-none tracking-tight;
+}
+
+.card-description {
+  @apply text-sm text-muted-foreground;
+}
+
+.card-content {
+  @apply p-6 pt-0;
+}
+
+.card-footer {
+  @apply flex items-center p-6 pt-0;
+}
+
+/* Form Styles */
+.form-label {
+  @apply text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
+}
+
+.form-description {
+  @apply text-sm text-muted-foreground;
+}
+
+.form-message {
+  @apply text-sm font-medium text-destructive;
+}
+
+/* Alert Styles */
+.alert {
+  @apply relative w-full rounded-lg border p-4;
+}
+
+.alert-destructive {
+  @apply border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive;
+}
+
+.alert-info {
+  @apply border-blue-500/50 text-blue-500 dark:border-blue-500 [&>svg]:text-blue-500;
+}
+
+.alert-success {
+  @apply border-green-500/50 text-green-500 dark:border-green-500 [&>svg]:text-green-500;
+}
+
+.alert-warning {
+  @apply border-yellow-500/50 text-yellow-500 dark:border-yellow-500 [&>svg]:text-yellow-500;
+}
+
+/* Badge Variants */
+.badge {
+  @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+}
+
+.badge-primary {
+  @apply bg-primary/10 text-primary border-primary/20;
+}
+
+.badge-secondary {
+  @apply bg-secondary/10 text-secondary border-secondary/20;
+}
+
+.badge-success {
+  @apply bg-green-500/10 text-green-500 border-green-500/20;
+}
+
+.badge-destructive {
+  @apply bg-destructive/10 text-destructive border-destructive/20;
+}
+
+.badge-warning {
+  @apply bg-yellow-500/10 text-yellow-500 border-yellow-500/20;
+}
+
+.badge-info {
+  @apply bg-blue-500/10 text-blue-500 border-blue-500/20;
+}
+
+/* Calendar Specific Styles */
+.calendar-day {
+  @apply min-h-[80px] border border-input p-1 transition-colors cursor-pointer;
+}
+
+.calendar-day-today {
+  @apply bg-primary/10;
+}
+
+.calendar-day-outside-month {
+  @apply bg-muted text-muted-foreground;
+}
+
+.calendar-event {
+  @apply text-xs truncate p-1 rounded-sm mb-1 cursor-pointer;
+}
+
+/* Customizing Tailwind's Default Colors */
+:root {
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-200: #bae6fd;
+  --color-primary-300: #7dd3fc;
+  --color-primary-400: #38bdf8;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-700: #0369a1;
+  --color-primary-800: #075985;
+  --color-primary-900: #0c4a6e;
+  --color-primary-950: #082f49;
+  
+  --color-secondary-50: #faf5ff;
+  --color-secondary-100: #f3e8ff;
+  --color-secondary-200: #e9d5ff;
+  --color-secondary-300: #d8b4fe;
+  --color-secondary-400: #c084fc;
+  --color-secondary-500: #a855f7;
+  --color-secondary-600: #9333ea;
+  --color-secondary-700: #7e22ce;
+  --color-secondary-800: #6b21a8;
+  --color-secondary-900: #581c87;
+  --color-secondary-950: #3b0764;
+} 
