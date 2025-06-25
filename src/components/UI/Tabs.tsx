@@ -49,7 +49,7 @@ export function TabsList({ className, children, activeTab, setActiveTab }: TabsL
   return (
     <div className={cn("flex space-x-1 rounded-lg bg-gray-100 p-1", className)}>
       {React.Children.map(children, (child) => {
-        if (React.isValidElement(child)) {
+        if (React.isValidElement(child) && child.type === TabsList) {
           return React.cloneElement(child, {
             activeTab,
             setActiveTab,
