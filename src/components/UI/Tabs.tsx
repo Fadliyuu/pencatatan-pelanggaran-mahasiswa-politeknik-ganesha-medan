@@ -39,7 +39,8 @@ export function Tabs({ defaultValue, className, children }: TabsProps) {
     <div className={cn("w-full", className)}>
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child) && child.type === TabsList) {
-          return React.cloneElement(child as React.ReactElement<any>, {
+          // @ts-ignore
+          return React.cloneElement(child, {
             activeTab,
             setActiveTab,
           });
