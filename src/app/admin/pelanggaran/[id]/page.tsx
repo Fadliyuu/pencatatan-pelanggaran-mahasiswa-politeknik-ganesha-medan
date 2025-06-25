@@ -61,12 +61,12 @@ export default function DetailPelanggaranPage({ params }: { params: { id: string
           return;
         }
 
-        const selectedMahasiswa = mahasiswaData.find((m: Mahasiswa) => m.id === selectedPelanggaran.mahasiswaId);
-        const selectedPeraturan = peraturanData.find((p: Peraturan) => p.id === selectedPelanggaran.peraturanId);
+        const selectedMahasiswa = mahasiswaData.find(m => m.id === selectedPelanggaran.mahasiswaId) as Mahasiswa | null;
+        const selectedPeraturan = (peraturanData as Peraturan[]).find((p) => p.id === selectedPelanggaran.peraturanId) as Peraturan | null;
 
         setPelanggaran(selectedPelanggaran);
-        setMahasiswa(selectedMahasiswa || null);
-        setPeraturan(selectedPeraturan || null);
+        setMahasiswa(selectedMahasiswa);
+        setPeraturan(selectedPeraturan);
       } catch (error) {
         console.error('Error fetching data:', error);
         toast.error('Gagal mengambil data');
@@ -239,7 +239,7 @@ export default function DetailPelanggaranPage({ params }: { params: { id: string
           Edit Data
         </Button>
         <Button
-          variant="danger"
+          variant="destructive"
           onClick={handleDelete}
         >
           Hapus Data
