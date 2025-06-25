@@ -80,8 +80,9 @@ export default function ProfilPage() {
           email: (mahasiswaData as any)?.email || "",
           alamat: (mahasiswaData as any)?.alamat || ""
         });
-        if ('photoURL' in mahasiswaData && mahasiswaData.photoURL) {
-          setPreviewUrl(mahasiswaData.photoURL);
+        const photoURL = (mahasiswaData as any)?.photoURL;
+        if (typeof photoURL === "string" && photoURL) {
+          setPreviewUrl(photoURL);
         }
       } catch (error) {
         console.error("Error dalam fetchData:", error);
