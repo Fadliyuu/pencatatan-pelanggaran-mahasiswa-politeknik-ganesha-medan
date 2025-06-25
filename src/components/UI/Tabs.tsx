@@ -50,7 +50,8 @@ export function Tabs({ defaultValue, className, children }: TabsProps) {
   );
 }
 
-export function TabsList({ className, children, activeTab, setActiveTab }: TabsListProps & { activeTab?: string; setActiveTab?: (value: string) => void }) {
+export function TabsList(props: TabsListProps & { activeTab?: string; setActiveTab?: (value: string) => void }) {
+  const { className, children, activeTab, setActiveTab } = props;
   return (
     <div className={cn("flex space-x-1 rounded-lg bg-gray-100 p-1", className)}>
       {React.Children.map(children, (child) => {
