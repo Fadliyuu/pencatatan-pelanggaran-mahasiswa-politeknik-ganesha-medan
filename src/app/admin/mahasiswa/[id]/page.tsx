@@ -17,6 +17,7 @@ import { Mahasiswa } from '@/types/model';
 export default function MahasiswaDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const safeId = params && typeof params === 'object' && 'id' in params && params.id ? params.id : undefined;
   const [mahasiswa, setMahasiswa] = useState<Mahasiswa | null>(null);
   const [pelanggaran, setPelanggaran] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -24,7 +25,7 @@ export default function MahasiswaDetailPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!params?.id) {
+      if (!safeId) {
         console.error('ID tidak ditemukan dalam params');
         setError('ID mahasiswa tidak ditemukan');
         setLoading(false);
@@ -34,10 +35,10 @@ export default function MahasiswaDetailPage() {
       try {
         setLoading(true);
         setError(null);
-        console.log('Mencoba mengambil data mahasiswa dengan ID:', params.id);
+        console.log('Mencoba mengambil data mahasiswa dengan ID:', safeId);
 
         // Ambil data mahasiswa
-        const mahasiswaRef = doc(db, 'mahasiswa', params.id as string);
+        const mahasiswaRef = doc(db, 'mahasiswa', safeId as string);
         const mahasiswaDoc = await getDoc(mahasiswaRef);
         
         if (!mahasiswaDoc.exists()) {
@@ -57,8 +58,8 @@ export default function MahasiswaDetailPage() {
         setMahasiswa(mahasiswaData);
 
         // Ambil data pelanggaran
-        console.log('Mencoba mengambil data pelanggaran untuk mahasiswa:', params.id);
-        const pelanggaranData = await getPelanggaranByMahasiswaId(params.id as string);
+        console.log('Mencoba mengambil data pelanggaran untuk mahasiswa:', safeId);
+        const pelanggaranData = await getPelanggaranByMahasiswaId(safeId as string);
         console.log('Data pelanggaran berhasil diambil:', pelanggaranData);
         setPelanggaran(pelanggaranData);
       } catch (error) {
@@ -71,13 +72,13 @@ export default function MahasiswaDetailPage() {
     };
 
     fetchData();
-  }, [params.id, router]);
+  }, [safeId, router]);
 
   const handleDelete = async () => {
-    if (!params || !('id' in params) || !params.id) return;
+    if (!safeId) return;
     if (window.confirm('Apakah Anda yakin ingin menghapus mahasiswa ini?')) {
       try {
-        await deleteMahasiswa(params.id as string);
+        await deleteMahasiswa(safeId as string);
         toast.success('Mahasiswa berhasil dihapus');
         router.push('/admin/mahasiswa');
       } catch (error) {
@@ -93,8 +94,8 @@ export default function MahasiswaDetailPage() {
         await deletePelanggaran(pelanggaranId);
         toast.success('Pelanggaran berhasil dihapus');
         // Refresh data pelanggaran
-        if (params && 'id' in params && params.id) {
-          const pelanggaranData = await getPelanggaranByMahasiswaId(params.id as string);
+        if (safeId) {
+          const pelanggaranData = await getPelanggaranByMahasiswaId(safeId as string);
           setPelanggaran(pelanggaranData);
         }
       } catch (error) {
@@ -211,7 +212,7 @@ export default function MahasiswaDetailPage() {
               <Button
                 variant="outline"
                 className="flex-1"
-                onClick={() => router.push(`/admin/mahasiswa/${params && 'id' in params ? params.id : ''}/edit`)}
+                onClick={() => router.push(`/admin/mahasiswa/${safeId}/edit`)}
               >
                 <Edit size={16} className="mr-2" />
                 Edit
@@ -277,7 +278,7 @@ export default function MahasiswaDetailPage() {
                     </div>
                     {p.buktiURLs && p.buktiURLs.length > 0 && (
                       <div className="mt-2 grid grid-cols-2 gap-4">
-                        {p.buktiURLs.map((url, index) => (
+                        {p.buktiURLs.map((url: string, index: number) => (
                           <div key={index} className="relative">
                             <Image
                               src={url}
