@@ -71,7 +71,7 @@ export default function EditMahasiswaPage() {
     const fetchData = async () => {
       try {
         const data = await getMahasiswa() as Mahasiswa[];
-        const mahasiswaData = data.find((m) => m.id === params.id);
+        const mahasiswaData = params && 'id' in params ? data.find((m) => m.id === params.id) : undefined;
         
         if (!mahasiswaData) {
           toast.error('Data mahasiswa tidak ditemukan');
@@ -105,7 +105,7 @@ export default function EditMahasiswaPage() {
     };
 
     fetchData();
-  }, [params.id, router, reset]);
+  }, [params && 'id' in params ? params.id : undefined, router, reset]);
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -132,6 +132,11 @@ export default function EditMahasiswaPage() {
       // Jika password tidak diisi, gunakan tanggal lahir
       const password = data.password || data.tanggalLahir;
 
+      if (!params || !('id' in params) || !params.id) {
+        toast.error('ID mahasiswa tidak valid');
+        setLoading(false);
+        return;
+      }
       await updateMahasiswa(params.id as string, {
         ...data,
         password,
@@ -161,7 +166,7 @@ export default function EditMahasiswaPage() {
       <div className="flex items-center gap-4">
         <Button
           variant="outline"
-          onClick={() => router.push(`/admin/mahasiswa/${params.id}`)}
+          onClick={() => router.push(`/admin/mahasiswa/${params && 'id' in params ? params.id : ''}`)}
           className="flex items-center gap-2"
         >
           <ArrowLeft size={18} />
@@ -318,7 +323,7 @@ export default function EditMahasiswaPage() {
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => router.push(`/admin/mahasiswa/${params.id}`)}
+                onClick={() => router.push(`/admin/mahasiswa/${params && 'id' in params ? params.id : ''}`)}
                 disabled={loading}
               >
                 Batal
