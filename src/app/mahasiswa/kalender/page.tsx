@@ -309,7 +309,7 @@ export default function KalenderMahasiswaPage() {
                       <h3 className="font-medium">{event.title}</h3>
                       <Badge 
                         variant={event.category === "exam" ? "danger" : 
-                               event.category === "meeting" ? "primary" : 
+                               event.category === "meeting" ? "info" : 
                                event.category === "seminar" ? "success" : "info"}
                         className="text-xs">
                         {categoryOptions.find(cat => cat.value === event.category)?.label.split('/')[0] || "Lainnya"}
@@ -420,7 +420,7 @@ export default function KalenderMahasiswaPage() {
                           <div>
                             <Badge 
                               variant={event.category === "exam" ? "danger" : 
-                                    event.category === "meeting" ? "primary" : 
+                                    event.category === "meeting" ? "info" : 
                                     event.category === "seminar" ? "success" : "info"}
                             >
                               {categoryOptions.find(cat => cat.value === event.category)?.label.split('/')[0] || "Lainnya"}
