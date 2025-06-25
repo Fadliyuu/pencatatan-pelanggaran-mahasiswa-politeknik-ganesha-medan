@@ -145,7 +145,7 @@ export default function DosenDashboard() {
         ).slice(0, 5);
 
         setPelanggaranTerbaru(sortedPelanggaran);
-        setPeraturan(peraturanData);
+        setPeraturan(peraturanData as Peraturan[]);
         setMahasiswa(mahasiswaData);
 
         // Fetch Pengumuman
