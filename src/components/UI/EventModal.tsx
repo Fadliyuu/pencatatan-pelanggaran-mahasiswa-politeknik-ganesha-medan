@@ -69,7 +69,7 @@ export function EventModal({
       setDateInput(value);
       setFormData(prev => ({
         ...prev,
-        date: value // simpan string dulu
+        date: new Date(value)
       }));
     } else {
       setFormData(prev => ({
@@ -81,13 +81,8 @@ export function EventModal({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    let dateObj = formData.date;
-    if (typeof dateObj === 'string') {
-      const [year, month, day] = dateObj.split('-').map(Number);
-      dateObj = new Date(year, month - 1, day);
-    }
     if (onSave) {
-      onSave({ ...formData, date: dateObj });
+      onSave({ ...formData, date: formData.date });
     }
     onClose();
   };
