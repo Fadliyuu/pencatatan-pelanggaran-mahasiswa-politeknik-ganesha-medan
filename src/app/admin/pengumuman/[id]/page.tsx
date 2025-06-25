@@ -47,7 +47,7 @@ export default function PengumumanDetailPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!params?.id) {
+      if (!params || !('id' in params) || !params.id) {
         console.error('ID tidak ditemukan dalam params');
         toast.error('ID pengumuman tidak ditemukan');
         router.push('/admin/pengumuman');
@@ -59,20 +59,20 @@ export default function PengumumanDetailPage() {
         const pengumumanData = await getPengumuman();
         const selectedPengumuman = pengumumanData.find(p => p.id === params.id);
 
-        if (!selectedPengumuman) {
-          toast.error('Pengumuman tidak ditemukan');
+        if (!selectedPengumuman || !('judul' in selectedPengumuman) || !('isi' in selectedPengumuman) || !('tanggal' in selectedPengumuman) || !('createdAt' in selectedPengumuman) || !('updatedAt' in selectedPengumuman)) {
+          toast.error('Pengumuman tidak ditemukan atau data tidak lengkap');
           router.push('/admin/pengumuman');
           return;
         }
-
-        setPengumuman(selectedPengumuman);
+        const pengumumanObj = selectedPengumuman as Pengumuman;
+        setPengumuman(pengumumanObj);
         reset({
-          judul: selectedPengumuman.judul,
-          isi: selectedPengumuman.isi,
-          tanggal: selectedPengumuman.tanggal,
-          gambarURL: selectedPengumuman.gambarURL,
+          judul: pengumumanObj.judul,
+          isi: pengumumanObj.isi,
+          tanggal: pengumumanObj.tanggal,
+          gambarURL: pengumumanObj.gambarURL,
         });
-        setPreviewImage(selectedPengumuman.gambarURL || null);
+        setPreviewImage(pengumumanObj.gambarURL || null);
       } catch (error) {
         console.error('Error fetching data:', error);
         toast.error('Gagal mengambil data pengumuman');
@@ -82,7 +82,7 @@ export default function PengumumanDetailPage() {
     };
 
     fetchData();
-  }, [params.id, router, reset]);
+  }, [params && 'id' in params ? params.id : undefined, router, reset]);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
