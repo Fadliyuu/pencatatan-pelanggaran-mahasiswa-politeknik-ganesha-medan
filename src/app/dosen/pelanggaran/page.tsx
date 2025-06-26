@@ -212,15 +212,15 @@ export default function PelanggaranPage() {
       ]);
       
       // Validasi data sebelum set state
-      const validPelanggaran = Array.isArray(pelanggaranData) ? pelanggaranData.filter(item => 
+      const validPelanggaran = Array.isArray(pelanggaranData) ? pelanggaranData.filter((item: any) => 
         item && typeof item === 'object' && item.id && item.tanggal
       ) : [];
       
-      const validMahasiswa = Array.isArray(mahasiswaData) ? mahasiswaData.filter(item => 
+      const validMahasiswa = Array.isArray(mahasiswaData) ? mahasiswaData.filter((item: any) => 
         item && typeof item === 'object' && item.id && item.name
       ) : [];
       
-      const validPeraturan = Array.isArray(peraturanData) ? peraturanData.filter(item => 
+      const validPeraturan = Array.isArray(peraturanData) ? peraturanData.filter((item: any) => 
         item && typeof item === 'object' && item.id && item.nama
       ) : [];
       
