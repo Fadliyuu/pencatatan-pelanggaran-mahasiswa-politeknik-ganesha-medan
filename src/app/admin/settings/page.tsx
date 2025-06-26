@@ -287,11 +287,11 @@ export default function SettingsPage() {
                       </div>
                       <div>
                         <h4 className="font-medium">Pengembang</h4>
-                        <p className="text-sm text-gray-500">Tim Pengembang Politeknik Ganesha Medan</p>
+                        <p className="text-sm text-gray-500">Fadli Iskandar</p>
                       </div>
                       <div>
                         <h4 className="font-medium">Kontak</h4>
-                        <p className="text-sm text-gray-500">support@poligamed.ac.id</p>
+                        <p className="text-sm text-gray-500">fadliiskandar90@gmail.com</p>
                       </div>
                     </div>
                   </div>
