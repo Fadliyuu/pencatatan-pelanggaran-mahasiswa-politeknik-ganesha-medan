@@ -525,6 +525,14 @@ export default function PelanggaranPage() {
     );
   }
 
+  function getTanggalString(tanggal: any) {
+    if (!tanggal) return '-';
+    if (typeof tanggal === 'string') return tanggal;
+    if (tanggal instanceof Date) return tanggal.toLocaleDateString();
+    if (typeof tanggal.toDate === 'function') return tanggal.toDate().toLocaleDateString();
+    return '-';
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1e2a78] via-[#6e3ff6] to-[#00e0ff] p-6">
       <div className="max-w-7xl mx-auto">
@@ -643,7 +651,7 @@ export default function PelanggaranPage() {
                 
                 return (
                   <tr key={item.id} className="border-b border-white/10 hover:bg-white/5 transition-colors">
-                    <td className="py-4 px-4 text-white/80">{item.tanggal || '-'}</td>
+                    <td className="py-4 px-4 text-white/80">{getTanggalString(item.tanggal)}</td>
                     <td className="py-4 px-4 text-white/80">{selectedMahasiswa?.name || '-'}</td>
                     <td className="py-4 px-4 text-white/80">{selectedMahasiswa?.nim || '-'}</td>
                     <td className="py-4 px-4 text-white/80">{selectedPeraturan?.nama || '-'}</td>
@@ -741,7 +749,7 @@ export default function PelanggaranPage() {
                   </div>
                   <div>
                     <h3 className="text-white/80 mb-2">Tanggal</h3>
-                    <p className="text-white">{selectedPelanggaran.tanggal}</p>
+                    <p className="text-white">{getTanggalString(selectedPelanggaran.tanggal)}</p>
                   </div>
                 </div>
 
@@ -919,8 +927,8 @@ export default function PelanggaranPage() {
                 )}
                 
                 <div className="flex justify-between text-sm text-white/60">
-                  <span>Diajukan: {new Date(selectedPelanggaran.banding.createdAt).toLocaleString('id-ID')}</span>
-                  <span>Diperbarui: {new Date(selectedPelanggaran.banding.updatedAt).toLocaleString('id-ID')}</span>
+                  <span>Diajukan: {getTanggalString(selectedPelanggaran.banding.createdAt)}</span>
+                  <span>Diperbarui: {getTanggalString(selectedPelanggaran.banding.updatedAt)}</span>
                 </div>
               </div>
             </div>
