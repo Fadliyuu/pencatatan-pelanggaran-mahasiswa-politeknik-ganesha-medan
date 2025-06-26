@@ -54,8 +54,8 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
 
       try {
         const mahasiswaData = await getMahasiswaByUserId(user.uid);
-        if (mahasiswaData?.settings) {
-          setSettings(mahasiswaData.settings as Settings);
+        if ((mahasiswaData as any)?.settings) {
+          setSettings((mahasiswaData as any).settings as Settings);
         }
       } catch (error) {
         console.error("Error fetching settings:", error);
