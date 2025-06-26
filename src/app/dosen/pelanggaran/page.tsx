@@ -211,11 +211,28 @@ export default function PelanggaranPage() {
         getPeraturan(),
       ]);
       
-      setPelanggaran(pelanggaranData as Pelanggaran[]);
-      setMahasiswa(mahasiswaData as Mahasiswa[]);
-      setPeraturan(peraturanData as Peraturan[]);
+      // Validasi data sebelum set state
+      const validPelanggaran = Array.isArray(pelanggaranData) ? pelanggaranData.filter(item => 
+        item && typeof item === 'object' && item.id && item.tanggal
+      ) : [];
+      
+      const validMahasiswa = Array.isArray(mahasiswaData) ? mahasiswaData.filter(item => 
+        item && typeof item === 'object' && item.id && item.name
+      ) : [];
+      
+      const validPeraturan = Array.isArray(peraturanData) ? peraturanData.filter(item => 
+        item && typeof item === 'object' && item.id && item.nama
+      ) : [];
+      
+      setPelanggaran(validPelanggaran as Pelanggaran[]);
+      setMahasiswa(validMahasiswa as Mahasiswa[]);
+      setPeraturan(validPeraturan as Peraturan[]);
     } catch (error) {
       console.error('Error fetching data:', error);
+      // Set empty arrays jika terjadi error
+      setPelanggaran([]);
+      setMahasiswa([]);
+      setPeraturan([]);
     }
   };
 
@@ -228,15 +245,17 @@ export default function PelanggaranPage() {
     }
   };
 
-  const filteredPelanggaran = pelanggaran
+  const filteredPelanggaran = (pelanggaran || [])
     .filter(item => {
-      const selectedMahasiswa = mahasiswa.find(m => m.id === item.mahasiswaId);
-      const selectedPeraturan = peraturan.find(p => p.id === item.peraturanId);
+      if (!item || !item.mahasiswaId || !item.peraturanId) return false;
+      
+      const selectedMahasiswa = mahasiswa.find(m => m.id === item.mahasiswaId) as Mahasiswa | undefined;
+      const selectedPeraturan = peraturan.find(p => p.id === item.peraturanId) as Peraturan | undefined;
       
       const matchesSearch = 
-        selectedMahasiswa?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        selectedMahasiswa?.nim.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        selectedPeraturan?.nama.toLowerCase().includes(searchTerm.toLowerCase());
+        selectedMahasiswa?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        selectedMahasiswa?.nim?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        selectedPeraturan?.nama?.toLowerCase().includes(searchTerm.toLowerCase());
       
       const matchesStatus = statusFilter === 'semua' || selectedPeraturan?.kategori === statusFilter;
       
@@ -245,7 +264,17 @@ export default function PelanggaranPage() {
     .sort((a, b) => {
       let comparison = 0;
       if (sortField === 'tanggal') {
-        comparison = new Date(a.tanggal).getTime() - new Date(b.tanggal).getTime();
+        try {
+          const dateA = new Date(a.tanggal);
+          const dateB = new Date(b.tanggal);
+          if (!isNaN(dateA.getTime()) && !isNaN(dateB.getTime())) {
+            comparison = dateA.getTime() - dateB.getTime();
+          } else {
+            comparison = (a.tanggal || '').localeCompare(b.tanggal || '');
+          }
+        } catch (error) {
+          comparison = (a.tanggal || '').localeCompare(b.tanggal || '');
+        }
       } else if (sortField === 'nama') {
         const namaA = mahasiswa.find(m => m.id === a.mahasiswaId)?.name || '';
         const namaB = mahasiswa.find(m => m.id === b.mahasiswaId)?.name || '';
