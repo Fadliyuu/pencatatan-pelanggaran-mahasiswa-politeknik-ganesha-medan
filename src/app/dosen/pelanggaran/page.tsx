@@ -858,7 +858,7 @@ export default function PelanggaranPage() {
                             <div className="flex justify-between items-start mb-2">
                               <div>
                                 <p className="text-white font-medium">{peraturanItem?.nama}</p>
-                                <p className="text-white/60 text-sm">{p.tanggal}</p>
+                                <p className="text-white/60 text-sm">{getTanggalString(p.tanggal)}</p>
                               </div>
                               <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full ${getStatusColor(peraturanItem?.kategori || '')}`}>
                                 {getStatusIcon(peraturanItem?.kategori || '')}
