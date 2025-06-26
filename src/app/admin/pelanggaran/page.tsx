@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { PlusCircle, Search, Filter, Calendar, Eye, FileText, Edit, Trash, X } from 'lucide-react';
+import { PlusCircle, Search, Filter, Calendar, Eye, FileText, Edit, Trash, X, Download } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/UI/Card';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/UI/Table';
 import Badge from '@/components/UI/Badge';
@@ -397,27 +397,37 @@ export default function PelanggaranPage() {
 
       <Card>
         <CardHeader>
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
             <CardTitle>Riwayat Pelanggaran</CardTitle>
-            <div className="flex items-center gap-4">
-              <div className="relative">
+            <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
+              <div className="relative w-full sm:w-auto">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                 <input
                   type="text"
                   placeholder="Cari mahasiswa atau jenis pelanggaran..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 w-full"
                 />
               </div>
-              <Button
-                variant="outline"
-                onClick={() => setShowFilterModal(true)}
-                className="flex items-center gap-2"
-              >
-                <Filter size={18} />
-                <span>Filter</span>
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowFilterModal(true)}
+                  className="flex items-center justify-center gap-2 py-2 px-3 text-sm w-full sm:w-auto"
+                >
+                  <Filter size={18} />
+                  <span className="hidden sm:inline">Filter</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleExport}
+                  className="flex items-center justify-center gap-2 py-2 px-3 text-sm w-full sm:w-auto"
+                >
+                  <Download size={18} />
+                  <span className="hidden sm:inline">Export</span>
+                </Button>
+              </div>
             </div>
           </div>
         </CardHeader>

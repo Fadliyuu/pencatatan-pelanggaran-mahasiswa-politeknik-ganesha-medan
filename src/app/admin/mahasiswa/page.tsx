@@ -1268,11 +1268,11 @@ function MahasiswaPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <h1 className="text-2xl font-bold text-gray-800">Manajemen Mahasiswa</h1>
         <Button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 w-full sm:w-auto"
           disabled={isSubmitting}
         >
           <UserPlus size={18} />
@@ -1282,12 +1282,12 @@ function MahasiswaPage() {
 
       <Card>
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
             <CardTitle>Daftar Mahasiswa</CardTitle>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <Button 
                 variant="outline" 
-                className="flex items-center gap-1 py-1 px-2"
+                className="flex items-center gap-1 py-1 px-2 w-full sm:w-auto"
                 onClick={() => setShowFilters(!showFilters)}
                 disabled={isSubmitting}
               >
@@ -1296,14 +1296,14 @@ function MahasiswaPage() {
               </Button>
               <Button 
                 variant="outline" 
-                className="flex items-center gap-1 py-1 px-2"
+                className="flex items-center gap-1 py-1 px-2 w-full sm:w-auto"
                 onClick={handleExport}
                 disabled={isSubmitting}
               >
                 <Download size={16} />
                 <span>Export</span>
               </Button>
-              <label className="btn-outline flex items-center gap-1 py-1 px-2 cursor-pointer">
+              <label className="btn-outline flex items-center gap-1 py-1 px-2 cursor-pointer w-full sm:w-auto">
                 <Upload size={16} />
                 <span>Import</span>
                 <input
@@ -1320,7 +1320,7 @@ function MahasiswaPage() {
           {/* Bulk Actions */}
           {selectedMahasiswa.length > 0 && (
             <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
                 <h3 className="font-medium">{selectedMahasiswa.length} mahasiswa dipilih</h3>
                 <Button
                   variant="outline"
@@ -1329,15 +1329,17 @@ function MahasiswaPage() {
                     setSelectedMahasiswa([]);
                     setSelectAll(false);
                   }}
+                  className="w-full sm:w-auto"
                 >
                   Batal
                 </Button>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={handleBulkResetPoin}
+                  className="w-full sm:w-auto"
                 >
                   Reset Poin
                 </Button>
@@ -1345,6 +1347,7 @@ function MahasiswaPage() {
                   variant="outline"
                   size="sm"
                   onClick={handleBulkDelete}
+                  className="w-full sm:w-auto"
                 >
                   Hapus
                 </Button>
@@ -1352,6 +1355,7 @@ function MahasiswaPage() {
                   variant="outline"
                   size="sm"
                   onClick={() => setShowBulkEditModal(true)}
+                  className="w-full sm:w-auto"
                 >
                   Edit Data
                 </Button>
@@ -1553,30 +1557,33 @@ function MahasiswaPage() {
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">
-                      <div className="flex justify-end gap-2">
+                      <div className="flex justify-end gap-1 sm:gap-2">
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() => handleView(m.id)}
                           disabled={isSubmitting}
+                          className="p-1 sm:p-2"
                         >
-                          <Eye size={16} />
+                          <Eye size={14} className="sm:w-4 sm:h-4" />
                         </Button>
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() => handleEdit(m)}
                           disabled={isSubmitting}
+                          className="p-1 sm:p-2"
                         >
-                          <Edit size={16} />
+                          <Edit size={14} className="sm:w-4 sm:h-4" />
                         </Button>
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() => handleDelete(m.id)}
                           disabled={isSubmitting}
+                          className="p-1 sm:p-2"
                         >
-                          <Trash size={16} />
+                          <Trash size={14} className="sm:w-4 sm:h-4" />
                         </Button>
                       </div>
                     </TableCell>
@@ -1602,7 +1609,7 @@ function MahasiswaPage() {
         title={showAddModal ? 'Tambah Mahasiswa' : 'Edit Mahasiswa'}
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">NIM</label>
               <input
@@ -1776,7 +1783,7 @@ function MahasiswaPage() {
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 mt-6">
+          <div className="flex flex-col sm:flex-row justify-end gap-2 mt-6">
             <Button
               type="button"
               variant="outline"
@@ -1789,10 +1796,15 @@ function MahasiswaPage() {
                 setCurrentPhotoURL('');
               }}
               disabled={isSubmitting}
+              className="w-full sm:w-auto"
             >
               Batal
             </Button>
-            <Button type="submit" disabled={isSubmitting}>
+            <Button 
+              type="submit" 
+              disabled={isSubmitting}
+              className="w-full sm:w-auto"
+            >
               {isSubmitting ? 'Menyimpan...' : showAddModal ? 'Tambah' : 'Simpan'}
             </Button>
           </div>
@@ -1900,7 +1912,7 @@ function MahasiswaPage() {
             </select>
           </div>
 
-          <div className="flex justify-end gap-2 pt-4 border-t">
+          <div className="flex flex-col sm:flex-row justify-end gap-2 pt-4 border-t">
             <Button
               variant="outline"
               onClick={() => {
@@ -1914,10 +1926,14 @@ function MahasiswaPage() {
                   jalur: ''
                 });
               }}
+              className="w-full sm:w-auto"
             >
               Batal
             </Button>
-            <Button onClick={handleBulkEdit}>
+            <Button 
+              onClick={handleBulkEdit}
+              className="w-full sm:w-auto"
+            >
               Simpan
             </Button>
           </div>
