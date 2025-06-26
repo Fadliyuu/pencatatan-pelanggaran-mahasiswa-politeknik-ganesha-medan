@@ -247,7 +247,7 @@ export default function PelanggaranPage() {
 
   const filteredPelanggaran = (pelanggaran || [])
     .filter(item => {
-      if (!item || !item.mahasiswaId || !item.peraturanId) return false;
+      if (!item || !item.mahasiswaId || !item.peraturanId || !item.tanggal) return false;
       
       const selectedMahasiswa = mahasiswa.find(m => m.id === item.mahasiswaId) as Mahasiswa | undefined;
       const selectedPeraturan = peraturan.find(p => p.id === item.peraturanId) as Peraturan | undefined;
@@ -265,12 +265,17 @@ export default function PelanggaranPage() {
       let comparison = 0;
       if (sortField === 'tanggal') {
         try {
-          const dateA = new Date(a.tanggal);
-          const dateB = new Date(b.tanggal);
-          if (!isNaN(dateA.getTime()) && !isNaN(dateB.getTime())) {
-            comparison = dateA.getTime() - dateB.getTime();
-          } else {
+          // Pastikan tanggal valid sebelum membuat Date object
+          if (!a.tanggal || !b.tanggal) {
             comparison = (a.tanggal || '').localeCompare(b.tanggal || '');
+          } else {
+            const dateA = new Date(a.tanggal);
+            const dateB = new Date(b.tanggal);
+            if (!isNaN(dateA.getTime()) && !isNaN(dateB.getTime())) {
+              comparison = dateA.getTime() - dateB.getTime();
+            } else {
+              comparison = a.tanggal.localeCompare(b.tanggal);
+            }
           }
         } catch (error) {
           comparison = (a.tanggal || '').localeCompare(b.tanggal || '');
@@ -631,20 +636,22 @@ export default function PelanggaranPage() {
             </thead>
             <tbody>
               {filteredPelanggaran.map((item) => {
+                if (!item || !item.id) return null;
+                
                 const selectedMahasiswa = mahasiswa.find(m => m.id === item.mahasiswaId);
                 const selectedPeraturan = peraturan.find(p => p.id === item.peraturanId);
                 
                 return (
                   <tr key={item.id} className="border-b border-white/10 hover:bg-white/5 transition-colors">
-                    <td className="py-4 px-4 text-white/80">{item.tanggal}</td>
-                    <td className="py-4 px-4 text-white/80">{selectedMahasiswa?.name}</td>
-                    <td className="py-4 px-4 text-white/80">{selectedMahasiswa?.nim}</td>
-                    <td className="py-4 px-4 text-white/80">{selectedPeraturan?.nama}</td>
-                    <td className="py-4 px-4 text-white/80">{item.poin}</td>
+                    <td className="py-4 px-4 text-white/80">{item.tanggal || '-'}</td>
+                    <td className="py-4 px-4 text-white/80">{selectedMahasiswa?.name || '-'}</td>
+                    <td className="py-4 px-4 text-white/80">{selectedMahasiswa?.nim || '-'}</td>
+                    <td className="py-4 px-4 text-white/80">{selectedPeraturan?.nama || '-'}</td>
+                    <td className="py-4 px-4 text-white/80">{item.poin || 0}</td>
                     <td className="py-4 px-4">
                       <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full ${getStatusColor(selectedPeraturan?.kategori || '')}`}>
                         {getStatusIcon(selectedPeraturan?.kategori || '')}
-                        {selectedPeraturan?.kategori}
+                        {selectedPeraturan?.kategori || '-'}
                       </span>
                     </td>
                     <td className="py-4 px-4">
