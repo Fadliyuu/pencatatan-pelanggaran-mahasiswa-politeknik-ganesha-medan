@@ -274,7 +274,7 @@ export default function Login() {
                       type="email"
                       {...register('email')}
                       className="block w-full pl-10 pr-3 py-2.5 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all duration-300"
-                      placeholder="nama@poligamed.ac.id"
+                      placeholder="Masukkan Email Anda"
                       disabled={isLoading}
                     />
                   </div>
