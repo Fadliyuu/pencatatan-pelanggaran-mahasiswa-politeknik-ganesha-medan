@@ -113,7 +113,7 @@ export default function LoginForm() {
           type="email"
           {...register('email')}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-          placeholder="nama@poligamed.ac.id"
+          placeholder="Masukkan Email Anda"
         />
         {errors.email && (
           <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
